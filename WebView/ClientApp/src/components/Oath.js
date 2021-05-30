@@ -1,13 +1,11 @@
-import React, { Component, useState } from 'react';
-import {Grid, makeStyles,} from "@material-ui/core";
-import { DragDropContext } from "react-beautiful-dnd";
-import Column from "./Column";
+import React, { Component } from 'react';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const OathLists = {
     ScabbledOath: {
       id: "Scabbled Oath",
     list:[
-      {id: 1, text: "On my honor"},
+    {id: 1, text: "On my honor"},
     {id: 2, text: "I will do my best"},
     {id: 3, text: "To do duty"},
     {id: 4, text: "To God"},
@@ -26,91 +24,65 @@ const OathLists = {
     }
 };
 
-const [columns, setColumns] = useState(OathLists);
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
 
-const onDragEnd = ({ source, destination}) => {
-  if(destination === undefined || destination === null){
-      return null
-  }
-
-  if (
-      source.droppableId === destination.droppableId &&
-      destination.index === source.index
-  ){
-      return null;
-  }
-
-  const start = columns[source.droppableId];
-  const end = columns[destination.droppableId];
-
-  if (start === end) {
-      // Move the item within the list
-      // Start by making a new list without the dragged item
-      const newList = start.list.filter((_, idx) => idx !== source.index);
-
-      // Then insert the item at the right location
-      newList.splice(destination.index, 0, start.list[source.index]);
-
-      // Then create a new copy of the column object
-      const newCol = {
-        id: start.id,
-        list: newList
-      };
-
-      setColumns((state) => ({ ...state, [newCol.id]: newCol }));
-      return null;
-  }
-  else {
-
-      var newStartList = start.list.filter((_, idx) => idx !== source.index);
-
-      // Create a new start column
-      var newStartCol = {
-        id: start.id,
-        list: newStartList
-      };
-
-      // Make a new end list array
-      var newEndList = end.list;
-
-      // Insert the item into the end list
-      newEndList.splice(destination.index, 0, start.list[source.index]);
-
-      // Create a new end column
-      var newEndCol = {
-        id: end.id,
-        list: newEndList
-      };
-
-      // Update the state
-      setColumns((state) => ({
-        ...state,
-        [newStartCol.id]: newStartCol,
-        [newEndCol.id]: newEndCol
-      }));
-      return null;
-  };
-}
+  return result;
+};
 
     export class Oath extends Component {
       static displayName = Oath.name;
+
+      constructor(props){
+        super(props);
+        this.state = {
+          originalList: OathLists.ScabbledOath.list
+        };
+        this.onDragEnd = this.onDragEnd.bind(this)
+      }
+
+      onDragEnd(result){
+        if(!result.destination)
+        return;
+
+        const originalList = reorder(
+          this.state.originalList,
+          result.source.index,
+          result.destination.index
+        )
+
+        this.state({originalList});
+      }      
     
       render () {
         return (
-            <DragDropContext onDragEnd={onDragEnd}>
-              <Grid container direction={"row"} justify={"center"}>
-                {Object.values(columns).map((column) => {
-                  console.log(column);
-                  return (
-                    <Grid item>
-                      <Column column={column} key={column.id} />
-                    </Grid>
-                  );
-                })}
-              </Grid>
-            </DragDropContext>
+          <DragDropContext onDragEnd={this.onDragEnd}>
+          <Droppable droppableId="droppable">
+            {(provided, snapshot) => (
+              <div
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {this.state.originalList.map((item, index) => (
+                  <Draggable key={item.id} draggableId={item.id} index={index}>
+                    {(provided, snapshot) => (
+                      <div
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                      >
+                        {item.text}
+                      </div>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        </DragDropContext>
           )
       };
     }
-    
-    const useStyles = makeStyles((theme) => ({}));
