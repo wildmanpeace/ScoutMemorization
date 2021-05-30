@@ -6,7 +6,7 @@ export class Oath extends Component {
 
   render () {
     return (
-      <App></App>
+      <App />
     );
   }
 }
