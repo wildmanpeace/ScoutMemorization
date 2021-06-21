@@ -2,9 +2,7 @@ import React from 'react';
 import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
-import { FetchData } from './components/FetchData';
-import { Counter } from './components/Counter';
-import { Oath } from './components/OathIndex';
+import { Oath } from './components/Oath';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 import './custom.css'
@@ -26,9 +24,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
       <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/counter' component={Counter} />
-        <Route path='/fetch-data' component={FetchData} />
-        <Route path='/oathIndex' component={Oath} />
+        <Route path='/Oath' component={Oath} />
       </Layout>
       </ThemeProvider>
     );

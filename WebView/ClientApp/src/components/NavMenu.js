@@ -21,11 +21,10 @@ export default function NavMenu() {
       <div>
         <AppBar className={classes.appBar} position='static'>
           <Toolbar>
-            <Typography className={classes.typo} varient="h3">Hello World</Typography>
+            <Typography className={classes.typo} varient="h3">Memorize Scouts</Typography>
             <div>
             <Button className={classes.navButton} component={Link} to="/">Home</Button>
-            <Button className={classes.navButton} component={Link} to="/counter">Counter</Button>
-            <Button className={classes.navButton} component={Link} to="/fetch-data">Fetch date</Button>
+            <Button className={classes.navButton} component={Link} to="/Oath">Scout Oath</Button>
             </div>
           </Toolbar>
 
