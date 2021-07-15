@@ -25,6 +25,7 @@ export default function NavMenu() {
             <div>
             <Button className={classes.navButton} component={Link} to="/">Home</Button>
             <Button className={classes.navButton} component={Link} to="/Oath">Scout Oath</Button>
+            <Button className={classes.navButton} component={Link} to="/Law">Scout Law</Button>
             </div>
           </Toolbar>
 

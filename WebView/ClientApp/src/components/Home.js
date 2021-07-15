@@ -1,17 +1,4 @@
 import React, { Component } from 'react';
-import { Paper, makeStyles } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    '& > *': {
-      margin: theme.spacing(1),
-      width: theme.spacing(16),
-      height: theme.spacing(16),
-    },
-  },
-}));
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -27,16 +14,8 @@ export class Home extends Component {
         <br />
 
         <p>
-          Select one of the options below to get started. 
+          Select one of the options above to get started. 
         </p>
-
-        {/* <div className={useStyles().root}>
-          <Paper elevation={3}>Scout Oath</Paper>
-          <Paper elevation={3}>Scout Law</Paper>
-          <Paper elevation={3}>Outdoor Code</Paper>
-          <Paper elevation={3}>Leave No Trace</Paper>
-
-        </div> */}
 
       </div>
     );

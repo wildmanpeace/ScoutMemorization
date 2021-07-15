@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { Oath } from './components/Oath';
+import { Law } from './components/Law';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 import './custom.css'
@@ -25,6 +26,7 @@ export default function App() {
       <Layout>
         <Route exact path='/' component={Home} />
         <Route path='/Oath' component={Oath} />
+        <Route path='/Law' component={Law} />
       </Layout>
       </ThemeProvider>
     );

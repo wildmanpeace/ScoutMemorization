@@ -70,7 +70,11 @@ export class Reorder extends Component{
 
     render () {
         if(this.state.isFinished){
-            return (<h1>Finished!</h1>)
+            return (
+            <>
+                <h1>Finished!</h1>
+                <h3>With a count of: {this.state.counter}</h3>
+            </>)
         }
         return (
         <>
