@@ -7,6 +7,7 @@ import { Law } from './components/Law';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 import './custom.css'
+import { Register } from './components/Register/Register';
 
 
 const theme = createMuiTheme({
@@ -27,6 +28,7 @@ export default function App() {
         <Route exact path='/' component={Home} />
         <Route path='/Oath' component={Oath} />
         <Route path='/Law' component={Law} />
+        <Route path='/Register' component={Register} />
       </Layout>
       </ThemeProvider>
     );
