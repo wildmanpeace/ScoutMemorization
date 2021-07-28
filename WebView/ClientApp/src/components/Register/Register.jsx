@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {FormControl, Button, TextField, RadioGroup, Radio, FormControlLabel} from "@material-ui/core"
+import axios from "axios"
 
 export class Register extends Component{
     constructor(props){
@@ -14,14 +15,44 @@ export class Register extends Component{
             password: "",
             passwordConfirmation: "",
             passwordErrorMessage: "",
-            passwordError: false
+            passwordError: false,
+            emailError: false
         }
     }
 
     handleOnClick = (event) =>{
         event.preventDefault();
 
+        if(this.state.passwordError === false || this.state.emailError === false){
+            return;
+        }
+        const user = {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            council: this.state.council,
+            unitNumber: this.state.unitNumber,
+            unitType: this.state.unitType
+        }
+
+        const login = {
+            email: this.state.email,
+            password: this.state.password
+        }
+
         
+    }
+
+    verifyEmail = () =>{
+
+        axios({
+            method: 'GET',
+            url: "/Login/VerifyEmail"});
+    }
+
+    verifyPasswords = () => {
+        if(this.state.password !== this.state.passwordConfirmation){
+            this.setState({passwordError: true})
+        }
     }
     
     render () {
@@ -59,7 +90,7 @@ export class Register extends Component{
                     <br />
 
                     <label>Email: 
-                    <TextField required id="Email" onChange={(event) => this.setState({email: event.target.value})}></TextField>
+                    <TextField required id="Email" onChange={(event) => this.setState({email: event.target.value})} onBlur={this.verifyEmail}></TextField>
                     </label>
                     <br />
 
